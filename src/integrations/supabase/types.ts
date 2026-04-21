@@ -14,7 +14,159 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      experiences: {
+        Row: {
+          created_at: string
+          id: string
+          image_url: string | null
+          location: string
+          notes: string | null
+          points_awarded: number
+          rating: number
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          location: string
+          notes?: string | null
+          points_awarded?: number
+          rating: number
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          location?: string
+          notes?: string | null
+          points_awarded?: number
+          rating?: number
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      gem_submissions: {
+        Row: {
+          category: string
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string | null
+          location: string
+          price_from: string | null
+          status: Database["public"]["Enums"]["gem_status"]
+          title: string
+          user_id: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          location: string
+          price_from?: string | null
+          status?: Database["public"]["Enums"]["gem_status"]
+          title: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          location?: string
+          price_from?: string | null
+          status?: Database["public"]["Enums"]["gem_status"]
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          business_name: string | null
+          created_at: string
+          display_name: string
+          id: string
+          is_premium: boolean
+          points: number
+          prompts_used: number
+          role: Database["public"]["Enums"]["app_role"]
+          updated_at: string
+        }
+        Insert: {
+          business_name?: string | null
+          created_at?: string
+          display_name?: string
+          id: string
+          is_premium?: boolean
+          points?: number
+          prompts_used?: number
+          role?: Database["public"]["Enums"]["app_role"]
+          updated_at?: string
+        }
+        Update: {
+          business_name?: string | null
+          created_at?: string
+          display_name?: string
+          id?: string
+          is_premium?: boolean
+          points?: number
+          prompts_used?: number
+          role?: Database["public"]["Enums"]["app_role"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      trips: {
+        Row: {
+          created_at: string
+          destination: string
+          end_date: string | null
+          id: string
+          model_used: string | null
+          plan: Json
+          start_date: string | null
+          title: string
+          travelers: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          destination: string
+          end_date?: string | null
+          id?: string
+          model_used?: string | null
+          plan?: Json
+          start_date?: string | null
+          title: string
+          travelers?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          destination?: string
+          end_date?: string | null
+          id?: string
+          model_used?: string | null
+          plan?: Json
+          start_date?: string | null
+          title?: string
+          travelers?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +175,8 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      app_role: "traveler" | "business"
+      gem_status: "pending" | "featured"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +303,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["traveler", "business"],
+      gem_status: ["pending", "featured"],
+    },
   },
 } as const
