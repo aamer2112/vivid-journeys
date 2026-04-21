@@ -1,11 +1,16 @@
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Compass, MapPinned, Sparkles } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface NavbarProps {
   onLogin: () => void;
 }
 
 export const Navbar = ({ onLogin }: NavbarProps) => {
+  const { user, profile } = useAuth();
+  const initials = (profile?.display_name || "?").slice(0, 2).toUpperCase();
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       <div className="container">
@@ -14,9 +19,7 @@ export const Navbar = ({ onLogin }: NavbarProps) => {
             <div className="h-9 w-9 rounded-xl bg-gradient-sunset grid place-items-center shadow-glow">
               <Sparkles className="h-5 w-5 text-white" />
             </div>
-            <span className="text-2xl font-bold tracking-tight text-white">
-              Travy
-            </span>
+            <span className="text-2xl font-bold tracking-tight text-white">Travy</span>
           </a>
 
           <nav className="hidden md:flex items-center gap-1 text-sm font-medium">
@@ -28,12 +31,20 @@ export const Navbar = ({ onLogin }: NavbarProps) => {
             </a>
           </nav>
 
-          <Button
-            onClick={onLogin}
-            className="bg-gradient-sunset hover:opacity-90 text-white border-0 shadow-glow rounded-xl font-semibold"
-          >
-            Login / Sign Up
-          </Button>
+          {user && profile ? (
+            <button onClick={onLogin}
+              className="flex items-center gap-2 glass rounded-xl px-2.5 py-1.5 hover:bg-white/15 transition">
+              <Avatar className="h-7 w-7 bg-gradient-sunset">
+                <AvatarFallback className="bg-transparent text-white text-xs font-bold">{initials}</AvatarFallback>
+              </Avatar>
+              <span className="text-white text-sm font-medium hidden sm:inline">{profile.display_name}</span>
+            </button>
+          ) : (
+            <Button onClick={onLogin}
+              className="bg-gradient-sunset hover:opacity-90 text-white border-0 shadow-glow rounded-xl font-semibold">
+              Login / Sign Up
+            </Button>
+          )}
         </div>
       </div>
     </header>
