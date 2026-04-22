@@ -109,9 +109,11 @@ const Index = () => {
           <footer className="container py-12 border-t border-white/10">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-lg bg-gradient-sunset grid place-items-center">
-                  <Sparkles className="h-4 w-4 text-white" />
-                </div>
+                <img
+                  src={(await import("@/assets/travy-logo.png")).default}
+                  alt="Travy logo"
+                  className="h-8 w-8 object-contain"
+                />
                 <span className="text-white font-bold text-lg">Travy</span>
                 <span className="text-white/50 text-sm hidden sm:inline">— Have a good time. Leave the planning to us.</span>
               </div>
