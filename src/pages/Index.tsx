@@ -12,7 +12,7 @@ import { GemForm } from "@/components/travy/GemForm";
 import { Sparkles } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
-import { ensureSeedTrip } from "@/lib/seed-trip";
+import { ensureSeedTrip, SEED_PLAN } from "@/lib/seed-trip";
 import travyLogo from "@/assets/travy-logo.png";
 
 const Index = () => {
@@ -98,12 +98,14 @@ const Index = () => {
           />
 
           <div ref={tripRef}>
-            {selectedTripId && (
+            {selectedTripId ? (
               <TripDashboard
                 key={selectedTripId}
                 tripId={selectedTripId}
                 onChanged={() => setRefreshKey((k) => k + 1)}
               />
+            ) : (
+              <TripDashboard demoPlan={SEED_PLAN} />
             )}
           </div>
 

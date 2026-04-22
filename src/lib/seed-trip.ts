@@ -2,7 +2,7 @@
 import { supabase } from "@/integrations/supabase/client";
 import type { TripPlan } from "@/types/trip";
 
-const SEED_PLAN: TripPlan = {
+export const SEED_PLAN: TripPlan = {
   title: "Madeira Weekend Escape",
   destination: "Madeira, Portugal",
   travelers: 4,
