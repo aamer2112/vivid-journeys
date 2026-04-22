@@ -180,6 +180,7 @@ export const TripDashboard = ({ tripId, onChanged }: Props) => {
                 savingId={savingId}
                 onAdd={() => addActivity(dayIdx)}
                 onRequestRemove={(actId) => setConfirmDel({ dayIdx, activityId: actId })}
+                onOpen={(act) => setOpenActivity(act)}
               />
             ))}
           </div>
@@ -265,16 +266,25 @@ export const TripDashboard = ({ tripId, onChanged }: Props) => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <ActivityDetailDrawer
+        activity={openActivity}
+        travelers={plan.travelers}
+        canSave={isOwner}
+        onClose={() => setOpenActivity(null)}
+        onToggleSave={toggleSaveActivity}
+      />
     </section>
   );
 };
 
 const DayCard = ({
-  day, dayIdx, travelers, isOwner, savingId, onAdd, onRequestRemove,
+  day, dayIdx, travelers, isOwner, savingId, onAdd, onRequestRemove, onOpen,
 }: {
   day: ItineraryDay; dayIdx: number; travelers: number;
   isOwner: boolean; savingId: string | null;
   onAdd: () => void; onRequestRemove: (id: string) => void;
+  onOpen: (a: Activity) => void;
 }) => {
   const dayMin = day.activities.reduce((s, a) => s + a.price_min, 0);
   const dayMax = day.activities.reduce((s, a) => s + a.price_max, 0);
@@ -298,16 +308,28 @@ const DayCard = ({
               <div className="absolute -left-[33px] top-1 h-6 w-6 rounded-full bg-gradient-sunset grid place-items-center shadow-glow">
                 <div className="h-2 w-2 rounded-full bg-white" />
               </div>
-              <div className="glass rounded-2xl p-4 hover:bg-white/[0.12] transition relative group">
+              <button
+                type="button"
+                onClick={() => onOpen(act)}
+                className="w-full text-left glass rounded-2xl p-4 hover:bg-white/[0.14] hover:scale-[1.01] transition relative group focus:outline-none focus:ring-2 focus:ring-sunset-coral/60"
+                aria-label={`Open details for ${act.title}`}
+              >
+                {act.saved && (
+                  <span className="absolute -top-2 -left-2 h-6 w-6 grid place-items-center rounded-full bg-gradient-sunset shadow-glow">
+                    <BookmarkCheck className="h-3.5 w-3.5 text-white" />
+                  </span>
+                )}
                 {isOwner && (
-                  <button
-                    onClick={() => onRequestRemove(act.id)}
-                    disabled={isSaving}
+                  <span
+                    role="button"
+                    tabIndex={0}
+                    onClick={(e) => { e.stopPropagation(); onRequestRemove(act.id); }}
+                    onKeyDown={(e) => { if (e.key === "Enter") { e.stopPropagation(); onRequestRemove(act.id); } }}
                     aria-label="Remove activity"
-                    className="absolute top-3 right-3 h-7 w-7 grid place-items-center rounded-full bg-white/10 hover:bg-destructive/80 text-white/70 hover:text-white transition opacity-0 group-hover:opacity-100"
+                    className="absolute top-3 right-3 h-7 w-7 grid place-items-center rounded-full bg-white/10 hover:bg-destructive/80 text-white/70 hover:text-white transition opacity-0 group-hover:opacity-100 cursor-pointer"
                   >
                     {isSaving ? <Loader2 className="h-3 w-3 animate-spin" /> : <X className="h-3.5 w-3.5" />}
-                  </button>
+                  </span>
                 )}
                 <div className="flex items-start gap-3 pr-8">
                   <div className="h-10 w-10 rounded-xl bg-white/10 grid place-items-center shrink-0">
@@ -339,9 +361,12 @@ const DayCard = ({
                         <Zap className="h-3 w-3" /> AI: {act.ai_note}
                       </div>
                     )}
+                    <p className="mt-2 text-[10px] text-white/45 group-hover:text-white/70 transition">
+                      Tap for address & details →
+                    </p>
                   </div>
                 </div>
-              </div>
+              </button>
             </li>
           );
         })}
