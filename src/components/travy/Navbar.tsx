@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Compass, MapPinned, Sparkles } from "lucide-react";
+import { Compass, MapPinned } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import travyLogo from "@/assets/travy-logo.png";
 
 interface NavbarProps {
   onLogin: () => void;
@@ -16,9 +17,11 @@ export const Navbar = ({ onLogin }: NavbarProps) => {
       <div className="container">
         <div className="mt-4 glass rounded-2xl px-5 py-3 flex items-center justify-between">
           <a href="#" className="flex items-center gap-2 group">
-            <div className="h-9 w-9 rounded-xl bg-gradient-sunset grid place-items-center shadow-glow">
-              <Sparkles className="h-5 w-5 text-white" />
-            </div>
+            <img
+              src={travyLogo}
+              alt="Travy logo"
+              className="h-10 w-10 object-contain drop-shadow-[0_4px_12px_rgba(255,107,107,0.45)] group-hover:scale-105 transition"
+            />
             <span className="text-2xl font-bold tracking-tight text-white">Travy</span>
           </a>
 
