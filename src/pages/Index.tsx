@@ -13,6 +13,7 @@ import { Sparkles } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { ensureSeedTrip } from "@/lib/seed-trip";
+import travyLogo from "@/assets/travy-logo.png";
 
 const Index = () => {
   const { user } = useAuth();
@@ -110,7 +111,7 @@ const Index = () => {
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-2">
                 <img
-                  src={(await import("@/assets/travy-logo.png")).default}
+                  src={travyLogo}
                   alt="Travy logo"
                   className="h-8 w-8 object-contain"
                 />
