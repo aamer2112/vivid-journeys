@@ -23,27 +23,36 @@ const ICONS: Record<Activity["category"], any> = {
 };
 
 interface Props {
-  tripId: string;
+  tripId?: string;
+  demoPlan?: TripPlan;
   onChanged?: () => void;
 }
 
-export const TripDashboard = ({ tripId, onChanged }: Props) => {
+export const TripDashboard = ({ tripId, demoPlan, onChanged }: Props) => {
   const { user } = useAuth();
+  const isDemo = !tripId && !!demoPlan;
   const [trip, setTrip] = useState<TripRow | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [localPlan, setLocalPlan] = useState<TripPlan | null>(demoPlan ?? null);
+  const [loading, setLoading] = useState(!isDemo);
   const [savingId, setSavingId] = useState<string | null>(null);
   const [confirmDel, setConfirmDel] = useState<{ dayIdx: number; activityId: string } | null>(null);
   const [openActivity, setOpenActivity] = useState<Activity | null>(null);
 
   useEffect(() => {
+    if (isDemo) {
+      setLocalPlan(demoPlan ?? null);
+      setLoading(false);
+      return;
+    }
+    if (!tripId) return;
     let active = true;
     setLoading(true);
     supabase.from("trips").select("*").eq("id", tripId).maybeSingle()
       .then(({ data }) => { if (active && data) setTrip(data as any); setLoading(false); });
     return () => { active = false; };
-  }, [tripId]);
+  }, [tripId, isDemo, demoPlan]);
 
-  const plan = trip?.plan as TripPlan | undefined;
+  const plan = isDemo ? localPlan ?? undefined : (trip?.plan as TripPlan | undefined);
 
   const totals = useMemo(() => {
     if (!plan) return { min: 0, max: 0, perPersonMin: 0, perPersonMax: 0 };
@@ -60,6 +69,10 @@ export const TripDashboard = ({ tripId, onChanged }: Props) => {
   }, [plan]);
 
   const persistPlan = async (newPlan: TripPlan) => {
+    if (isDemo) {
+      setLocalPlan(newPlan);
+      return;
+    }
     if (!trip) return;
     const { error } = await supabase
       .from("trips")
