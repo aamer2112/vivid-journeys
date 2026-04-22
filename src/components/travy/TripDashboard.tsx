@@ -8,13 +8,14 @@ import {
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import {
-  Clock, MapPin, Sparkles, Check, Wallet, Zap, Users, X,
+  Clock, MapPin, Sparkles, Check, Wallet, Zap, Users, X, BookmarkCheck,
   Mountain, Coffee, PartyPopper, Sailboat, Landmark, Bus, Bed, Plus, Loader2,
 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import type { Activity, ItineraryDay, TripPlan, TripRow } from "@/types/trip";
+import { ActivityDetailDrawer } from "@/components/travy/ActivityDetailDrawer";
 
 const ICONS: Record<Activity["category"], any> = {
   hike: Mountain, food: Coffee, beach: Sailboat, culture: Landmark,
