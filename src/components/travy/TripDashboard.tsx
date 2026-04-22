@@ -33,6 +33,7 @@ export const TripDashboard = ({ tripId, onChanged }: Props) => {
   const [loading, setLoading] = useState(true);
   const [savingId, setSavingId] = useState<string | null>(null);
   const [confirmDel, setConfirmDel] = useState<{ dayIdx: number; activityId: string } | null>(null);
+  const [openActivity, setOpenActivity] = useState<Activity | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -107,6 +108,23 @@ export const TripDashboard = ({ tripId, onChanged }: Props) => {
     };
     await persistPlan(newPlan);
     toast.success("Activity added — tap × to remove later");
+  };
+
+  const toggleSaveActivity = async (act: Activity) => {
+    if (!plan) return;
+    const nextSaved = !act.saved;
+    const newPlan: TripPlan = {
+      ...plan,
+      days: plan.days.map((d) => ({
+        ...d,
+        activities: d.activities.map((a) =>
+          a.id === act.id ? { ...a, saved: nextSaved } : a,
+        ),
+      })),
+    };
+    await persistPlan(newPlan);
+    setOpenActivity({ ...act, saved: nextSaved });
+    toast.success(nextSaved ? "✨ Saved to your trip" : "Removed from saved");
   };
 
   if (loading) {
