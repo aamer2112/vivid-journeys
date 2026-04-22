@@ -5,9 +5,9 @@ import { supabase } from "@/integrations/supabase/client";
 
 export const DEMO_ACCOUNTS = {
   traveler: {
-    email: "sofia.traveler@travy.demo",
+    email: "abdallah.traveler@travy.demo",
     password: "TravyDemo2026!",
-    display_name: "Sofia",
+    display_name: "Abdallah",
     role: "traveler" as const,
     business_name: null,
   },
