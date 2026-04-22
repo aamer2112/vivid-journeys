@@ -8,6 +8,9 @@ export interface Activity {
   price_min: number;
   price_max: number;
   ai_note?: string;
+  address?: string;
+  why_timesaver?: string;
+  saved?: boolean;
 }
 
 export interface ItineraryDay {

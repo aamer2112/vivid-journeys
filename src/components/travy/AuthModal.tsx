@@ -114,7 +114,7 @@ const SelectView = ({ setMode, onClose }: { setMode: (m: Mode) => void; onClose:
             className="bg-gradient-sunset border-0 rounded-xl mb-2"
           >
             <Zap className="h-4 w-4 mr-1" />
-            {busy === "traveler" ? "Loading…" : "Demo as Sofia"}
+            {busy === "traveler" ? "Loading…" : "Demo as Abdallah"}
           </Button>
           <Button
             variant="outline"

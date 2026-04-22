@@ -10,7 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 
 const seed = [
-  { id: "s1", img: r1, user: "Sofia M.", spot: "Lisbon Old Town", points: 500, rating: 5 },
+  { id: "s1", img: r1, user: "Abdallah R.", spot: "Lisbon Old Town", points: 500, rating: 5 },
   { id: "s2", img: r2, user: "Marco & Léa", spot: "Cliff Jump – Madeira", points: 750, rating: 5 },
   { id: "s3", img: r3, user: "Aïsha K.", spot: "Sunset Tapas – Peru", points: 500, rating: 5 },
   { id: "s4", img: r4, user: "Theo R.", spot: "Mt. Roraima Sunrise", points: 1000, rating: 5 },
