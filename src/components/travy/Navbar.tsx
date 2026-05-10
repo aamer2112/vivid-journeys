@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Compass, MapPinned } from "lucide-react";
+import { Compass, MapPinned, HelpCircle } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import travyLogo from "@/assets/travy-logo.png";
 
