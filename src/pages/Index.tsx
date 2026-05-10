@@ -110,6 +110,8 @@ const Index = () => {
             )}
           </div>
 
+          <HelpSupport />
+
           <footer className="container py-12 border-t border-white/10">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-2">
