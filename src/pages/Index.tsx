@@ -9,6 +9,7 @@ import { MyTrips } from "@/components/travy/MyTrips";
 import { AuthModal } from "@/components/travy/AuthModal";
 import { ExperienceForm } from "@/components/travy/ExperienceForm";
 import { GemForm } from "@/components/travy/GemForm";
+import { HelpSupport } from "@/components/travy/HelpSupport";
 import { Sparkles } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -108,6 +109,8 @@ const Index = () => {
               <TripDashboard demoPlan={SEED_PLAN} />
             )}
           </div>
+
+          <HelpSupport />
 
           <footer className="container py-12 border-t border-white/10">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">

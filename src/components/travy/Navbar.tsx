@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Compass, MapPinned } from "lucide-react";
+import { Compass, MapPinned, HelpCircle } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import travyLogo from "@/assets/travy-logo.png";
 
@@ -31,6 +31,9 @@ export const Navbar = ({ onLogin }: NavbarProps) => {
             </a>
             <a href="#trips" className="px-4 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition flex items-center gap-2">
               <MapPinned className="h-4 w-4" /> My Trips
+            </a>
+            <a href="#help" className="px-4 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition flex items-center gap-2">
+              <HelpCircle className="h-4 w-4" /> Help
             </a>
           </nav>
 
