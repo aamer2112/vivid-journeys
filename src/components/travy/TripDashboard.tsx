@@ -16,6 +16,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import type { Activity, ItineraryDay, TripPlan, TripRow } from "@/types/trip";
 import { ActivityDetailDrawer } from "@/components/travy/ActivityDetailDrawer";
+import { TravelDocsChecker } from "@/components/travy/TravelDocsChecker";
+import { GroupVoting } from "@/components/travy/GroupVoting";
+import { Plane, ShieldCheck } from "lucide-react";
 
 const ICONS: Record<Activity["category"], any> = {
   hike: Mountain, food: Coffee, beach: Sailboat, culture: Landmark,
@@ -37,6 +40,7 @@ export const TripDashboard = ({ tripId, demoPlan, onChanged }: Props) => {
   const [savingId, setSavingId] = useState<string | null>(null);
   const [confirmDel, setConfirmDel] = useState<{ dayIdx: number; activityId: string } | null>(null);
   const [openActivity, setOpenActivity] = useState<Activity | null>(null);
+  const [docsOpen, setDocsOpen] = useState(false);
 
   useEffect(() => {
     if (isDemo) {
@@ -267,7 +271,38 @@ export const TripDashboard = ({ tripId, demoPlan, onChanged }: Props) => {
             </div>
           </div>
         </div>
+
+        {/* Group Voting + Docs CTA */}
+        <div className="mt-10 grid lg:grid-cols-5 gap-6">
+          <div className="lg:col-span-3">
+            <GroupVoting />
+          </div>
+          <div className="lg:col-span-2">
+            <div className="glass-strong rounded-3xl p-6 md:p-7 h-full flex flex-col">
+              <Badge className="bg-emerald-500/15 text-emerald-200 border-emerald-400/30 gap-1 self-start mb-3">
+                <ShieldCheck className="h-3 w-3" /> Border-ready
+              </Badge>
+              <h3 className="text-white font-semibold text-xl flex items-center gap-2">
+                <Plane className="h-5 w-5 text-sunset-coral" /> Foolproof Travel Docs
+              </h3>
+              <p className="text-white/70 text-sm mt-2 flex-1">
+                Visas, passport rules, and license validity — Travy AI cross-checks each
+                traveler against entry requirements for {plan.destination}.
+              </p>
+              <Button
+                onClick={() => setDocsOpen(true)}
+                className="mt-5 w-full bg-gradient-sunset hover:opacity-90 text-white border-0 rounded-2xl h-12 font-semibold shadow-glow"
+              >
+                <Plane className="h-4 w-4 mr-2" /> Check Travel Docs & Visas
+              </Button>
+              <p className="mt-3 text-[11px] text-white/50 text-center">
+                🔒 Encrypted end-to-end • No passport data stored
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
+
 
       <AlertDialog open={!!confirmDel} onOpenChange={(o) => !o && setConfirmDel(null)}>
         <AlertDialogContent className="glass-strong border-white/15 text-white">
@@ -294,6 +329,12 @@ export const TripDashboard = ({ tripId, demoPlan, onChanged }: Props) => {
         canSave={isOwner}
         onClose={() => setOpenActivity(null)}
         onToggleSave={toggleSaveActivity}
+      />
+
+      <TravelDocsChecker
+        open={docsOpen}
+        onOpenChange={setDocsOpen}
+        destination={plan.destination}
       />
     </section>
   );

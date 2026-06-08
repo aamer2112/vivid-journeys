@@ -10,6 +10,7 @@ import { AuthModal } from "@/components/travy/AuthModal";
 import { ExperienceForm } from "@/components/travy/ExperienceForm";
 import { GemForm } from "@/components/travy/GemForm";
 import { HelpSupport } from "@/components/travy/HelpSupport";
+import { InfluencerProof } from "@/components/travy/InfluencerProof";
 import { Sparkles } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -86,6 +87,8 @@ const Index = () => {
 
         <div className="relative bg-gradient-to-b from-transparent via-background/85 to-background backdrop-blur-2xl">
           <FeaturedGems onSubmitGem={() => setGemOpen(true)} refreshKey={refreshKey} />
+          <InfluencerProof />
+
           <CommunityReviews onAddExperience={() => setExpOpen(true)} refreshKey={refreshKey} />
 
           <MyTrips
