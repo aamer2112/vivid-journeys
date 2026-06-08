@@ -330,6 +330,12 @@ export const TripDashboard = ({ tripId, demoPlan, onChanged }: Props) => {
         onClose={() => setOpenActivity(null)}
         onToggleSave={toggleSaveActivity}
       />
+
+      <TravelDocsChecker
+        open={docsOpen}
+        onOpenChange={setDocsOpen}
+        destination={plan.destination}
+      />
     </section>
   );
 };
