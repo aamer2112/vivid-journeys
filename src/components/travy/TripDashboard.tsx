@@ -16,6 +16,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import type { Activity, ItineraryDay, TripPlan, TripRow } from "@/types/trip";
 import { ActivityDetailDrawer } from "@/components/travy/ActivityDetailDrawer";
+import { TravelDocsChecker } from "@/components/travy/TravelDocsChecker";
+import { GroupVoting } from "@/components/travy/GroupVoting";
+import { Plane, ShieldCheck } from "lucide-react";
 
 const ICONS: Record<Activity["category"], any> = {
   hike: Mountain, food: Coffee, beach: Sailboat, culture: Landmark,
