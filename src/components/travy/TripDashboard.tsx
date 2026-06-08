@@ -40,6 +40,7 @@ export const TripDashboard = ({ tripId, demoPlan, onChanged }: Props) => {
   const [savingId, setSavingId] = useState<string | null>(null);
   const [confirmDel, setConfirmDel] = useState<{ dayIdx: number; activityId: string } | null>(null);
   const [openActivity, setOpenActivity] = useState<Activity | null>(null);
+  const [docsOpen, setDocsOpen] = useState(false);
 
   useEffect(() => {
     if (isDemo) {
