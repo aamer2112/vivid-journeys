@@ -87,6 +87,8 @@ const Index = () => {
 
         <div className="relative bg-gradient-to-b from-transparent via-background/85 to-background backdrop-blur-2xl">
           <FeaturedGems onSubmitGem={() => setGemOpen(true)} refreshKey={refreshKey} />
+          <InfluencerProof />
+
           <CommunityReviews onAddExperience={() => setExpOpen(true)} refreshKey={refreshKey} />
 
           <MyTrips
